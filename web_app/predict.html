@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.0/dist/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-darkt nav-col">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Overview<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="map.html">Magic map<span class="sr-only"></span></a>
+                </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="predict.html">Predict<span class="sr-only"></span></a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+              <a class="nav-link" href="about.html">About us<span class="sr-only"></span></a>
+            </span>
+    </div>
+</nav>
+
+    <div class="containerr">
+        <div class="row map-cont iop">
+                Our vision was to provide a reliable source of information for people of Finland so they could organize
+                fantastic and joyful events around the city. Should it be a charity fundraiser, a concert, or any type
+                of cultural event, our algorithm will find the perfect time for it.
+                The solution we created can predict the expected number of people in Helsinki given the day. The tools
+                we used include the most state-of-art technologies available on the field of data science. We utilized
+                a machine learning algorithm called multiple regression model to achieve our goal and make everyone’s
+                life little better.
+        </div>
+    </div>
+
+    <div class="containerr">
+
+        <div class="row map-cont">
+            <div class="col-sm">
+            <div id="chart">
+                <canvas id="myChart" width="400" height="400"></canvas>
+                <div class="row qwe">
+                    <div class="col-sm qwe">Start</div>
+                    <div class="col-sm qwe">End</div>
+                    <div class="col-sm asd"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm asd"><input class="cBtn asd" type="date" v-model="start"></div>
+                    <div class="col-sm asd"><input class="cBtn asd" type="date" v-model="end"></div>
+                    <div class="col-sm asd"><button class="cBtn asd" id="render" @click="draw">Get data</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div id="model" style="margin-left: 25%; margin-top: 150px;">
+                <table style="text-align:center">
+                    <tr>
+                        <td colspan="2" style="border-bottom: 1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td><em>Dependent variable:</em></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="1" style="border-bottom: 1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>Number of people</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-bottom: 1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Day</td>
+                        <td>-0.120<sup>***</sup></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>(0.001)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Clouds</td>
+                        <td>-0.216<sup>***</sup></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>(0.007)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Average Tempeture</td>
+                        <td>0.537<sup>***</sup></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>(0.007)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Visibility</td>
+                        <td>-0.00000<sup>***</sup></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>(0.00000)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Wind</td>
+                        <td>-0.162<sup>***</sup></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>(0.014)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Sunny weather</td>
+                        <td>1.352<sup>***</sup></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>(0.154)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Constant</td>
+                        <td>2,181.159<sup>***</sup></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td>(27.088)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-bottom: 1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Observations</td>
+                        <td>209,928</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">R<sup>2</sup></td>
+                        <td>0.172</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Adjusted R<sup>2</sup></td>
+                        <td>0.172</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Residual Std. Error</td>
+                        <td>9.126 (df = 209921)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">F Statistic</td>
+                        <td>7,245.113<sup>***</sup> (df = 6; 209921)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-bottom: 1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left"><em>Note:</em></td>
+                        <td style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td>
+                    </tr> </table>
+            </div>
+        </div>
+
+        </div>
+    </div>
+<div class="containerr">
+    <div class="row map-cont iop">
+            For the prediction, we used weather-related data provided by Finnish Meteorological Institute. However,
+            this model is not fully complete yet. With future developments we could provide a reliable „forecast” about
+            the distribution of people among specified locations and make valuable suggestions; furthermore, we can
+            increase the explained variance (the fit of the model or R-squared) with adding more relevant variables to
+            the model. In summary, we can interpret this model as a solid standpoint for future features.
+    </div>
+</div>
+
+
+        <script>
+            var ChartApp = new Vue({
+                el: '#chart',
+                data: {
+                    serverAdress: 'http://f8275356.ngrok.io/',
+
+                    ctx: undefined,
+                    myChart: undefined,
+                    start: '2019-10-01',
+                    end: '2019-10-02',
+                    dataPred: [],//[12, 19, 3, 5, 2, 3],
+                    dataRainy: [],
+                    labels: [],   //['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                },
+                methods: {
+                    draw: async function () {
+                        await this.update()
+                        this.myChart.update()
+                    },
+                    update: async function () {
+                        let res = await fetch(`${this.serverAdress}?start=${this.start}&end=${this.end}`)
+                        res = await res.json()
+                        this.dataPred.length = 0
+                        this.dataRainy.length = 0
+                        this.labels.length = 0
+                        res.data.forEach(x => {
+                            console.log(x)
+                            this.dataPred.push(x.pred)
+                            this.dataRainy.push(x.pred * 0.1)
+                            this.labels.push(x.date.split(' ')[0])
+                        })
+                    }
+                },
+                mounted: function () {
+                    this.ctx = document.getElementById('myChart').getContext('2d')
+                    //const rainy = this.dataPred.map(x => x*0.1)
+                    this.myChart = new Chart(this.ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: this.labels,
+                            datasets: [{
+                                label: 'ifSunny',
+                                data: this.dataPred,
+                                backgroundColor: 'rgba(130, 50, 50, 0.8)',
+                                borderWidth: 1
+                            },
+                                {
+                                    label: 'ifRainy',
+                                    data: this.dataRainy,
+                                    backgroundColor: 'rgba(40, 80, 120, 0.8)',
+                                    borderWidth: 1
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{gridLines: { color: "#6e6e6e" }},{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }
+                                ],yAxes: [{gridLines: { color: "#6e6e6e" }}]
+                            }
+                        }
+                    });
+                }
+            })
+        </script>
+</body>
+</html>

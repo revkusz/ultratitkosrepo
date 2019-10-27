@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+    </head>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-darkt nav-col">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Overview<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="map.html">Magic map<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="predict.html">Predict<span class="sr-only"></span></a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+              <a class="nav-link" href="about.html">About us<span class="sr-only"></span></a>
+            </span>
+        </div>
+    </nav>
+
+<div class="containerr">
+    <div class="row map-cont">
+        <div class="col-9 pad0">
+
+            <!-- Google map -->
+            <div id="map"></div>
+        </div>
+        <div class="col-3">
+
+            <!-- Display -->
+            <div class="map-control-container">
+                <div class="row">
+                    <button class="sBtn" id="bdm1" onclick="toggleContentBtn('dm1')">
+                        Display
+                    </button>
+                    <div class="sCont" id="dm1" aria-labelledby="dropdownMenuButton">
+                        <button class="cBtn" onclick="toggleHeatmap()">Heatmap</button>
+                        <button class="cBtn" onclick="togglePlaces()">Places</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Days  -->
+            <div class="map-control-container">
+                <div class="row">
+                    <button class="sBtn" id="bdm3" onclick="toggleContentBtn('dm3')">
+                        Days
+                    </button>
+                    <div class="sCont" id="dm3" aria-labelledby="dropdownMenuButton">
+                        <form>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(-1)" type="radio" name="gender" value="male" checked>Full week
+                                </div>
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(4)" type="radio" name="gender" value="male">Thursday
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(1)" type="radio" name="gender" value="female">Monday
+                                </div>
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(5)"type="radio" name="gender" value="female">Friday
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(2)" type="radio" name="gender" value="female">Tuesday
+                                </div>
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(6)" type="radio" name="gender" value="male">Saturday
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(3)" type="radio" name="gender" value="male">Wednesday
+                                </div>
+                                <div class="col-sm">
+                                    <input onClick="dayUpdate(0)" type="radio" name="gender" value="female">Sunday
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather -->
+            <div class="row">
+                <button class="sBtn" id="bdm2" onclick="toggleContentBtn('dm2')">
+                    Weather
+                </button>
+                <div class="sCont" id="dm2" aria-labelledby="dropdownMenuButton">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm">
+                                <input onClick="weatherUpdate(0)" type="radio" name="gender" value="male" checked>No filter
+                            </div>
+                            <div class="col-sm">
+                                <input onClick="weatherUpdate(2)" type="radio" name="gender" value="male">Rainy
+                            </div>
+                            <div class="col-sm">
+                                <input onClick="weatherUpdate(1)" type="radio" name="gender" value="other">Sunny
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Time -->
+            <div class="row">
+                <button class="sBtn" id="bdm4" onclick="toggleContentBtn('dm4')">
+                    Time
+                </button>
+                <div class="sCont" id="dm4" aria-labelledby="dropdownMenuButton">
+                    <div class="row or">
+                        <button class="cBtn operationBtn" onClick="timbeButton(-1)">-</button><div id="ora">12</div><button class="cBtn operationBtn" onClick="timbeButton(1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Playback -->
+            <div class="map-control-container">
+                <div class="row">
+                    <button class="sBtn" id="bdm5" onclick="toggleContentBtn('dm5')">
+                        Play
+                    </button>
+                    <div class="sCont" id="dm5" aria-labelledby="dropdownMenuButton">
+                        <button class="cBtn" style="width: 90%;" onclick="autoplayStartStop()">Play</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Video -->
+
+            <div class="map-control-container">
+                <div class="row">
+                    <button class="sBtn" id="bdm6" onclick="toggleContentBtn('dm6')">
+                        Live
+                    </button>
+                    <div class="sCont" id="dm6" aria-labelledby="dropdownMenuButton">
+                        <a name="lkr-timelapse-player" data-id="1508248462" data-play="day" href="https://lookr.com/1508248462" target="_blank">Helsinki: Tie 51 − Ruoholahti</a><script async type="text/javascript" src="https://api.lookr.com/embed/script/player.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+        async defer
+        src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyC4WzKT9pQqoMHaQkVxlnB6pXHxSXZ7mOc&libraries=visualization&callback=initMap">
+</script>
+<script src="webcam.js" ></script>
+
+<script src="gmap.js" ></script>
+<script src="popupmarker.js" ></script>
+<script src="fetch.js"></script>
+<script src="events.js" ></script>
+
+</body>
+</html>
