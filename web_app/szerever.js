@@ -3,7 +3,9 @@ const perf = require('execution-time')();
 const express = require("express");
 const http = require('http');
 const Pool = require('pg').Pool
-const cors = require('cors');
+const moment = require('moment')
+const {rnorm, runif} = require('statdists')
+const cors = require('cors')
 const pool = new Pool({
     user: 'admin',
     //host: '34.77.180.31',
@@ -97,6 +99,7 @@ let weatherquery2 = " 1) as weather_data where" +
 " EXTRACT(MONTH FROM avg_data.\"time\") = weather_data.month and"+
 " EXTRACT(day FROM avg_data.\"time\") = weather_data.day and" +
 " EXTRACT(hour FROM avg_data.\"time\") = weather_data.time::integer ";
+
 /**
  * path params
  * day = 0-6
@@ -198,48 +201,41 @@ app.get("/gethourdata", (req, res, next) => {
    
 });
 
-
-app.get('/',function(req,res) {
-    res.sendFile(__dirname+'/map.html');
-});
-
-app.get('/about.html',function(req,res) {
-    res.sendFile(__dirname+'/about.html');
-});
-
-app.get('/predict.html',function(req,res) {
-    res.sendFile(__dirname+'/predict.html');
-});
-
-app.get('/index.html',function(req,res) {
+app.get('/getlivefeed',function(req,res) {
     res.sendFile(__dirname+'/index.html');
 });
-////////////////////////////////////////////////////////
-app.get('/fetch.js',function(req,res) {
-    res.sendFile(__dirname+'/fetch.js');
-});
 
-app.get('/popupmarker.js',function(req,res) {
-    res.sendFile(__dirname+'/popupmarker.js');
-});
-
-app.get('/events.js',function(req,res) {
-    res.sendFile(__dirname+'/events.js');
-});
-
-app.get('/gmap.js',function(req,res) {
-    res.sendFile(__dirname+'/gmap.js');
-});
-
-app.get('/webcam.js',function(req,res) {
-    res.sendFile(__dirname+'/webcam.js');
-});
-
-app.get('/ima3.js',function(req,res) {
-    res.sendFile(__dirname+'/ima3.js');
-});
-
-
+const predict = date => {
+    const targetDate = moment(date)
+    const unixDate = moment('1970-01-01')
+    const diff = targetDate.diff(unixDate, 'day')
+    const pred = (2.181e+05 + diff *-1.199e-01)+rnorm(1, diff, 10000)[0]
+    return Math.round(pred)
+  }
+  
+  const getPrediction = (start, end) => {
+    const startDate = moment(start)
+    const endDate = moment(end)
+    const diff = endDate.diff(startDate, 'day')
+    const preds = {data: []}
+    for(let i = 0; i < diff; ++i){
+      const tmp = startDate.add(1, 'd').clone().format('YYYY-MM-DD')
+      preds.data.push({
+        date: tmp,
+        pred: predict(tmp)
+      })
+    }
+    return preds
+  }
+  
+  // predict?start=2019-10-01&end=2019-10-07
+  app.get('/predict', (req, res) => {
+    const start = req.query.start
+    const end = req.query.end
+    const result = getPrediction(start, end)
+    res.send(result)
+  })
+  
 
 app.use(cors());
 //export app

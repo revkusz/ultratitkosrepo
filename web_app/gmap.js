@@ -257,6 +257,7 @@ cam = function() {
         var marker = new google.maps.Marker({
             position: latLng,
             map: map,
+            link: element.link,
             icon: 'http://maps.google.com/mapfiles/kml/paddle/go.png',
             type: 'video'
 
@@ -267,7 +268,11 @@ cam = function() {
 
     for (let i=0; i<camMarker.length;i++) {
         google.maps.event.addDomListener(camMarker[i], 'click', function () {
-            console.log("asd");
+            $.getScript("https://api.lookr.com/embed/script/player.js");
+            document.getElementById('camDiv').innerHTML = camMarker[i].link;
+           /* var DOMContentLoaded_event = document.createEvent("Event")
+            DOMContentLoaded_event.initEvent("DOMContentLoaded", true, true)
+            window.document.dispatchEvent(DOMContentLoaded_event)*/
         })
     }
 

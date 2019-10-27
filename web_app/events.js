@@ -60,7 +60,10 @@ timer = undefined;
 function autoplayStartStop() {
     if (timer) {
         clearTimeout(timer);
+        timer = undefined;
+        document.getElementById("playbackButton").innerText = "Play";
     } else {
+        document.getElementById("playbackButton").innerText = "Stop";
         timer = setInterval(function () {
             console.log("asd");
             timbeButton(1);
